@@ -1,0 +1,83 @@
+﻿@{
+    ViewBag.Title = "Actual Receiving";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/ActualReceiving-CSS")
+    <style>
+        /*.modal-body {
+            background: #d9e0e7 !important;
+        }*/
+
+        ul {
+            list-style: none;
+        }
+    </style>
+}
+<div class="panel panel-inverse" id="main-panel">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
+                <i class="fa fa-expand"></i>
+            </a>
+        </div>
+        <h4 class="panel-title"><span class="fa fa-user"></span>  @ViewBag.Title</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="input-group input-group-sm m-b-5">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" style="width:122px;" for="PONo">PO No <span class="text-danger">*</span></label>
+                    </div>
+                    <select id="PONo" name="PONo" class="form-control input" required data-parsley-errors-container="#err-PONo" autocomplete="off"></select>
+                </div>
+                <div id="err-PONo"></div>
+            </div>
+            <div class="col-sm-6">
+                <div class="input-group input-group-sm m-b-5">
+                    <div class="input-group-prepend">
+                        <label class="input-group-text" style="width:122px;" for="SupplierName">Supplier Name <span class="text-danger">*</span></label>
+                    </div>
+                    <input type="text" id="SupplierName" name="SupplierName" class="form-control input" data-parsley-required data-parsley-errors-container="#err-SupplierName" autocomplete="off" readonly>
+                </div>
+                <div id="err-SupplierName"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="offset-sm-9 col-sm-3 m-b-5 ReadAndWrite">
+                <button type="button" id="btnSearch" class="btn btn-info btn-block "><span class="fa fa-search"></span><span class="btnLabel"> Search</span></button>
+            </div>
+        </div>
+    </div>
+    <div class="hljs-wrapper">
+        <table id="tblPurchaseOrderItems" class="table zebraStyle  table-bordered tbl-100p" data-adjust="-30"></table>
+        <div class="row">
+            <div class="offset-sm-9 col-sm-3 m-b-5 m-t-5 ReadAndWrite">
+                <button type="button" id="btnSave" class="btn btn-success btn-block " style="display:none;"><span class="fa fa-box-open"></span><span class="btnLabel"> Send to Item Segregation</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="mdlViewReceivingHistory" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" id="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mdlViewReceivingHistoryTitle"> PO Receiving History</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <table id="tblViewReceivingHistory" class="table zebraStyle  table-bordered tbl-100p" data-adjust="-30"></table>
+            </div>
+            <div class="modal-footer">
+                <input type="hidden" name="ID" id="UserID" value="0" />
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"><span class="fa fa-times"></span> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/ActualReceiving-JS")
+}

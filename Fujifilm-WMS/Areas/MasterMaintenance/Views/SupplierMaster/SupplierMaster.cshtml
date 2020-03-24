@@ -1,0 +1,119 @@
+﻿
+@{
+    ViewBag.Title = "Supplier Master";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    @Styles.Render("~/SupplierMaster-CSS")
+    <style>
+
+        /*.modal-body {
+            background: #d9e0e7 !important;
+        }*/
+
+        ul {
+            list-style: none;
+        }
+    </style>
+}
+<div class="panel panel-inverse" id="main-panel">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
+                <i class="fa fa-expand"></i>
+            </a>
+        </div>
+        <h4 class="panel-title"><span class="fa fa-user"></span>  @ViewBag.Title</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-8 col-lg-7">
+                <div class="row">
+                    <div class="col-sm-3 m-b-5 ReadAndWrite">
+                        <button type="button" id="btnAddSupplierMaster" class="btn btn-primary btn-block "><span class="fa fa-plus"></span><span class="btnLabel"> Add</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5 ReadAndWrite">
+                        <button type="button" id="btnEditSupplierMaster" class="btn btn-info btn-block " disabled><span class="fa fa-edit"></span><span class="btnLabel"> Edit</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5 DeleteEnabled">
+                        <button type="button" id="btnDeleteSupplierMaster" class="btn btn-danger btn-block " disabled><span class="fa fa-trash-alt"></span><span class="btnLabel"> Delete</span></button>
+                    </div>
+                    @*<div class="col-sm-3 m-b-5">
+                            <button type="button" id="btnExcelUpload" class="btn btn-success btn-block"><span class="fa fa-upload"></span><span class="btnLabel"> Upload</span></button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hljs-wrapper">
+        <table id="tblSupplierMaster" class="table zebraStyle  table-bordered tbl-100p" data-adjust="-30"></table>
+    </div>
+</div>
+<div class="modal fade " id="mdlSupplierMaster" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" id="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mdlSupplierMasterTitle"> Register New Supplier</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form data-parsley-validate="true" id="frmSupplierMaster">
+                <div class="modal-body">
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="SupplierCode">Supplier Code <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="SupplierCode" name="SupplierCode" class="form-control input" data-parsley-required data-parsley-errors-container="#err-SupplierCode" autocomplete="off">
+                            </div>
+                            <div id="err-SupplierCode"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="SupplierName">Supplier Name <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="SupplierName" name="SupplierName" class="form-control input" data-parsley-required data-parsley-errors-container="#err-SupplierName" autocomplete="off">
+                            </div>
+                            <div id="err-SupplierName"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="SupplierAbbrev">Supplier Abbrev <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="SupplierAbbrev" name="SupplierAbbrev" class="form-control input" data-parsley-required data-parsley-errors-container="#err-SupplierAbbrev" autocomplete="off">
+                            </div>
+                            <div id="err-SupplierAbbrev"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Status">Status <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Status" name="Status" class="form-control input" required data-parsley-errors-container="#err-Status" autocomplete="off">
+                                    <option value="0">Active</option>
+                                    <option value="1">Inactive</option>
+                                </select>
+                            </div>
+                            <div id="err-Status"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="ID" id="UserID" value="0" />
+                    <button type="submit" class="btn btn-primary ReadAndWrite" id="btnSaveSupplier"> <span class="fa fa-save"></span> <span class="btnLabel"> Save</span></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCancelSupplier"><span class="fa fa-times"></span> Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/SupplierMaster-JS")
+}

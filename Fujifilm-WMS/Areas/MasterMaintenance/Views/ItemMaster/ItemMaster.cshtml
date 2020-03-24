@@ -1,0 +1,141 @@
+﻿
+@{
+    ViewBag.Title = "Item Master";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/ItemMaster-CSS")
+    <style>
+
+        /*.modal-body {
+            background: #d9e0e7 !important;
+        }*/
+
+        ul {
+            list-style: none;
+        }
+    </style>
+}
+<div class="panel panel-inverse" id="main-panel">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
+                <i class="fa fa-expand"></i>
+            </a>
+        </div>
+        <h4 class="panel-title"><span class="fa fa-user"></span>  @ViewBag.Title</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-8 col-lg-7">
+                <div class="row">
+                    <div class="col-sm-3 m-b-5 ReadAndWrite">
+                        <button type="button" id="btnAddItemMaster" class="btn btn-primary btn-block "><span class="fa fa-plus"></span><span class="btnLabel"> Add</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5 ReadAndWrite">
+                        <button type="button" id="btnEditItemMaster" class="btn btn-info btn-block " disabled><span class="fa fa-edit"></span><span class="btnLabel"> Edit</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5 DeleteEnabled">
+                        <button type="button" id="btnDeleteItemMaster" class="btn btn-danger btn-block " disabled><span class="fa fa-trash-alt"></span><span class="btnLabel"> Delete</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5">
+                        <button type="button" id="btnExcelUpload" class="btn btn-success btn-block"><span class="fa fa-upload"></span><span class="btnLabel"> Upload</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hljs-wrapper">
+        <table id="tblItemMaster" class="table zebraStyle  table-bordered tbl-100p" data-adjust="-30"></table>
+    </div>
+</div>
+<div class="modal fade " id="mdlItemMaster" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" id="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mdlItemMasterTitle"> Register New Part Number</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form data-parsley-validate="true" id="frmItemMaster">
+                <div class="modal-body">
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="PartNumber">Part Number <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="PartNumber" name="PartNumber" class="form-control input" data-parsley-required data-parsley-errors-container="#err-PartNumber" autocomplete="off">
+                            </div>
+                            <div id="err-PartNumber"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="PartName">Part Name <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="PartName" name="PartName" class="form-control input" data-parsley-required data-parsley-errors-container="#err-PartName" autocomplete="off">
+                            </div>
+                            <div id="err-PartName"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Model">Model <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Model" name="Model" class="form-control input" required data-parsley-errors-container="#err-Model"></select>
+                            </div>
+                            <div id="err-Model"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Category">Category <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Category" name="Category" class="form-control input" required data-parsley-errors-container="#err-Category"></select>
+                            </div>
+                            <div id="err-Category"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="UOM">Unit <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="UOM" name="UOM" class="form-control input" required data-parsley-errors-container="#err-UOM"></select>
+                            </div>
+                            <div id="err-UOM"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Status">Status <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Status" name="Status" class="form-control input" required data-parsley-errors-container="#err-Status" autocomplete="off">
+                                    <option value="0">Active</option>
+                                    <option value="1">Inactive</option>
+                                </select>
+                            </div>
+                            <div id="err-Status"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="ID" id="UserID" value="0" />
+                    <button type="submit" class="btn btn-primary ReadAndWrite" id="btnSaveItem"> <span class="fa fa-save"></span> <span class="btnLabel"> Save</span></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCancelItem"><span class="fa fa-times"></span> Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/ItemMaster-JS")
+}
+
+
+

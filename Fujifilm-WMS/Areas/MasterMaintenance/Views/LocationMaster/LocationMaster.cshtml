@@ -1,0 +1,158 @@
+﻿
+@{
+    ViewBag.Title = "Location Master";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/LocationMaster-CSS")
+    <style>
+
+        /*.modal-body {
+            background: #d9e0e7 !important;
+        }*/
+
+        ul {
+            list-style: none;
+        }
+    </style>
+}
+<div class="panel panel-inverse" id="main-panel">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
+                <i class="fa fa-expand"></i>
+            </a>
+        </div>
+        <h4 class="panel-title"><span class="fa fa-user"></span>  @ViewBag.Title</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-8 col-lg-7">
+                <div class="row">
+                    <div class="col-sm-3 m-b-5 ReadAndWrite">
+                        <button type="button" id="btnAddLocationMaster" class="btn btn-primary btn-block "><span class="fa fa-plus"></span><span class="btnLabel"> Add</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5 ReadAndWrite">
+                        <button type="button" id="btnEditLocationMaster" class="btn btn-info btn-block " disabled><span class="fa fa-edit"></span><span class="btnLabel"> Edit</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5 DeleteEnabled">
+                        <button type="button" id="btnDeleteLocationMaster" class="btn btn-danger btn-block " disabled><span class="fa fa-trash-alt"></span><span class="btnLabel"> Delete</span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hljs-wrapper">
+        <table id="tblLocationMaster" class="table zebraStyle  table-bordered tbl-100p" data-adjust="-30"></table>
+    </div>
+</div>
+<div class="modal fade " id="mdlLocationMaster" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" id="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mdlLocationMasterTitle"> Register New Location</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form data-parsley-validate="true" id="frmLocationMaster">
+                <div class="modal-body">
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Area">Area <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="Area" name="Area" class="form-control input" data-parsley-required data-parsley-errors-container="#err-Area" autocomplete="off">
+                            </div>
+                            <div id="err-Area"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Position">Position <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="Position" name="Position" class="form-control input" data-parsley-required data-parsley-errors-container="#err-Position" autocomplete="off">
+                            </div>
+                            <div id="err-Position"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="X">X <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="X" name="X" class="form-control input" data-parsley-required data-parsley-errors-container="#err-X" autocomplete="off">
+                            </div>
+                            <div id="err-X"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Y">Y <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="Y" name="Y" class="form-control input" data-parsley-required data-parsley-errors-container="#err-Y" autocomplete="off">
+                            </div>
+                            <div id="err-Y"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Z">Z <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="Z" name="Z" class="form-control input" data-parsley-required data-parsley-errors-container="#err-Z" autocomplete="off">
+                            </div>
+                            <div id="err-Z"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="PalletCapacity">Pallet Capacity <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="PalletCapacity" name="PalletCapacity" class="form-control input" data-parsley-required data-parsley-errors-container="#err-PalletCapacity" autocomplete="off">
+                            </div>
+                            <div id="err-PalletCapacity"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="BoxCapacity">Box Capacity <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="BoxCapacity" name="BoxCapacity" class="form-control input" data-parsley-required data-parsley-errors-container="#err-BoxCapacity" autocomplete="off">
+                            </div>
+                            <div id="err-BoxCapacity"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:101px;" for="Status">Status <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Status" name="Status" class="form-control input" required data-parsley-errors-container="#err-Status" autocomplete="off">
+                                    <option value="0">Active</option>
+                                    <option value="1">Inactive</option>
+                                </select>
+                            </div>
+                            <div id="err-Status"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="ID" id="UserID" value="0" />
+                    <button type="submit" class="btn btn-primary ReadAndWrite" id="btnSaveLocation"> <span class="fa fa-save"></span> <span class="btnLabel"> Save</span></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCancelLocation"><span class="fa fa-times"></span> Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/LocationMaster-JS")
+}
+
+
+

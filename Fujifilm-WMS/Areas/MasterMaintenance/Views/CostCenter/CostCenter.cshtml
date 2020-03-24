@@ -1,0 +1,121 @@
+﻿
+@{
+    ViewBag.Title = "Cost Center";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section css{
+    @Styles.Render("~/CostCenterMaster-CSS")
+    <style>
+
+        /*.modal-body {
+            background: #d9e0e7 !important;
+        }*/
+
+        ul {
+            list-style: none;
+        }
+    </style>
+}
+<div class="panel panel-inverse" id="main-panel">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
+                <i class="fa fa-expand"></i>
+            </a>
+        </div>
+        <h4 class="panel-title"><span class="fa fa-user"></span>  @ViewBag.Title</h4>
+    </div>
+    <div class="panel-body">
+        <div class="row">
+            <div class="col-sm-8 col-lg-7">
+                <div class="row">
+                    <div class="col-sm-3 m-b-5 ReadAndWrite">
+                        <button type="button" id="btnAddCostCenterMaster" class="btn btn-primary btn-block "><span class="fa fa-plus"></span><span class="btnLabel"> Add</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5 ReadAndWrite">
+                        <button type="button" id="btnEditCostCenterMaster" class="btn btn-info btn-block " disabled><span class="fa fa-edit"></span><span class="btnLabel"> Edit</span></button>
+                    </div>
+                    <div class="col-sm-3 m-b-5 DeleteEnabled">
+                        <button type="button" id="btnDeleteCostCenterMaster" class="btn btn-danger btn-block " disabled><span class="fa fa-trash-alt"></span><span class="btnLabel"> Delete</span></button>
+                    </div>
+                    @*<div class="col-sm-3 m-b-5">
+                            <button type="button" id="btnExcelUpload" class="btn btn-success btn-block"><span class="fa fa-upload"></span><span class="btnLabel"> Upload</span></button>
+                        </div>*@
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="hljs-wrapper">
+        <table id="tblCostCenterMaster" class="table zebraStyle  table-bordered tbl-100p" data-adjust="-30"></table>
+    </div>
+</div>
+<div class="modal fade " id="mdlCostCenterMaster" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" id="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mdlCostCenterMasterTitle"> Register New Cost Center</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form data-parsley-validate="true" id="frmCostCenterMaster">
+                <div class="modal-body">
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:122px;" for="CostCenterCode">Cost Center Code <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="CostCenterCode" name="CostCenterCode" class="form-control input" data-parsley-required data-parsley-errors-container="#err-CostCenterCode" autocomplete="off">
+                            </div>
+                            <div id="err-CostCenterCode"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:122px;" for="CostCenterName">Cost Center Name <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="CostCenterName" name="CostCenterName" class="form-control input" data-parsley-required data-parsley-errors-container="#err-CostCenterName" autocomplete="off">
+                            </div>
+                            <div id="err-CostCenterName"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:122px;" for="DepartmentID">Department <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="DepartmentID" name="DepartmentID" class="form-control input" required data-parsley-errors-container="#err-DepartmentID" autocomplete="off">
+                                </select>
+                            </div>
+                            <div id="err-DepartmentID"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:122px;" for="Status">Status <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Status" name="Status" class="form-control input" required data-parsley-errors-container="#err-Status" autocomplete="off">
+                                    <option value="0">Active</option>
+                                    <option value="1">Inactive</option>
+                                </select>
+                            </div>
+                            <div id="err-Status"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" name="ID" id="UserID" value="0" />
+                    <button type="submit" class="btn btn-primary ReadAndWrite" id="btnSaveCostCenter"> <span class="fa fa-save"></span> <span class="btnLabel"> Save</span></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCancelCostCenter"><span class="fa fa-times"></span> Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/CostCenterMaster-JS")
+}
+

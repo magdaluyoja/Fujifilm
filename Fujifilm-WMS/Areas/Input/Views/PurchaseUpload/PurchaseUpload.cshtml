@@ -1,0 +1,197 @@
+﻿@{
+    ViewBag.Title = "Purchase Upload";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section css{
+    @Styles.Render("~/PurchaseUpload-CSS")
+}
+<div class="panel panel-inverse" id="main-panel">
+    <div class="panel-heading">
+        <div class="panel-heading-btn">
+            <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand">
+                <i class="fa fa-expand"></i>
+            </a>
+        </div>
+        <h4 class="panel-title"><span class="fa fa-cart-plus"></span>  @ViewBag.Title</h4>
+    </div>
+    <div class="panel-body ">
+        <form data-parsley-validate="true" id="frmPurchaseUpload" class="md-form mb-1" style="margin-top: 0;">
+            <div class="row">
+                <div class="col-sm-3 m-b-5 ReadAndWrite">
+                    <button type="button" id="btnAddPurchaseOrderMaster" class="btn btn-primary btn-block "><span class="fa fa-plus"></span><span class="btnLabel"> Add</span></button>
+                </div>
+                <div class="col-sm-3 m-b-5 ReadAndWrite">
+                    <button type="button" id="btnEditPurchaseOrderMaster" class="btn btn-info btn-block tbl-tr-btns" disabled><span class="fa fa-edit"></span><span class="btnLabel"> Edit</span></button>
+                </div>
+                <div class="col-sm-3 m-b-5 DeleteEnabled">
+                    <button type="button" id="btnDeletePurchaseOrderMaster" class="btn btn-danger btn-block tbl-tr-btns" disabled><span class="fa fa-trash-alt"></span><span class="btnLabel"> Delete</span></button>
+                </div>
+                <div class="col-sm-3 m-b-5 ReadAndWrite">
+                    <button type="button" id="btnUploadPurchaseOrderMaster" class="btn btn-success btn-block "><span class="fa fa-upload"></span><span class="btnLabel"> Upload</span></button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="hljs-wrapper">
+        <table id="tblPurchaseUpload" class="table zebraStyle  table-bordered tbl-100p tbl-no-wrap bordered-th" data-adjust="-40"></table>
+    </div>
+</div>
+<div class="modal fade " id="mdlPurchaseOrder" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" id="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mdlPurchaseOrderTitle"> Register New PO</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form data-parsley-validate="true" id="frmPurchaseOrder">
+                <div class="modal-body">
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="Department">Department <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Department" name="Department" class="form-control input" required data-parsley-errors-container="#err-Department"></select>
+                            </div>
+                            <div id="err-Department"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="Cost_Center">Cost Center <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Cost_Center" name="Cost_Center" class="form-control input" required data-parsley-errors-container="#err-Cost_Center"></select>
+                            </div>
+                            <div id="err-Cost_Center"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="Vendor">Vendor <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Vendor" name="Vendor" class="form-control input" required data-parsley-errors-container="#err-Vendor"></select>
+                            </div>
+                            <div id="err-Vendor"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="PO_Issued_Date">PO Issued Date <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="PO_Issued_Date" name="PO_Issued_Date" class="form-control input" data-parsley-required data-parsley-errors-container="#err-PO_Issued_Date" autocomplete="off">
+                            </div>
+                            <div id="err-PO_Issued_Date"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="PO_No">PO No <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="PO_No" name="PO_No" class="form-control input" required data-parsley-errors-container="#err-PO_No"></select>
+                            </div>
+                            <div id="err-PO_No"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="PO_Ln_No">PO Ln No</label>
+                                </div>
+                                <input type="text" id="PO_Ln_No" name="PO_Ln_No" class="form-control input" data-parsley-required data-parsley-errors-container="#err-PO_Ln_No" autocomplete="off" readonly>
+                            </div>
+                            <div id="err-PO_Ln_No"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="Material">Material <span class="text-danger">*</span></label>
+                                </div>
+                                <select id="Material" name="Material" class="form-control input" required data-parsley-errors-container="#err-Material"></select>
+                            </div>
+                            <div id="err-Material"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="Unit">Unit</label>
+                                </div>
+                                <input type="text" id="Unit" name="Unit" class="form-control input" data-parsley-required data-parsley-errors-container="#err-Unit" autocomplete="off" readonly>
+                            </div>
+                            <div id="err-Unit"></div>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="Requested_Delivery_Date">Req. Del. Date <span class="text-danger">*</span></label>
+                                </div>
+                                <input type="text" id="Requested_Delivery_Date" name="Requested_Delivery_Date" class="form-control input" data-parsley-required data-parsley-errors-container="#err-Requested_Delivery_Date" autocomplete="off">
+                            </div>
+                            <div id="err-Requested_Delivery_Date"></div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group input-group-sm m-b-5">
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" style="width:110px;" for="PO_Balance">PO Balance</label>
+                                </div>
+                                <input type="number" id="PO_Balance" name="PO_Balance" class="form-control input" data-parsley-required data-parsley-errors-container="#err-PO_Balance" autocomplete="off">
+                            </div>
+                            <div id="err-PO_Balance"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <input type="hidden" class="input" name="ID" id="UserID" value="0" />
+                    <button type="submit" class="btn btn-primary ReadAndWrite" id="btnSavePurchaseOrder"> <span class="fa fa-save"></span> <span class="btnLabel"> Save</span></button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCancelPurchaseOrder"><span class="fa fa-times"></span> Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="modal fade " id="mdlPurchaseOrderUpload" role="dialog" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg" id="" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="mdlPurchaseOrderUploadTitle"> Register New PO</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="frmPurchaseOrderUpload" data-parsley-validate="true" class="md-form mb-1" style="margin-top: 0;">
+                    <div class="row" id="div-flPurchaseUpload">
+                        <div class="col-sm-10">
+                            <div class="file-field">
+                                <div class="btn btn-success btn-sm float-left text-left" style="width:127px;">
+                                    <span> File </span>
+                                    <input type="file" id="FileUpload" class="input" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                                </div>
+                                <div class="file-path-wrapper">
+                                    <input class="file-path validate file-label" type="text" placeholder="Select Excel Files" id="lblNewPurchaseUpload">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <button type="button" class="btn btn-success btn-block btn-sm" id="btnUploadFile"><span class="fa fa-upload"></span> Upload</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" id="btnCancelItem"><span class="fa fa-times"></span> Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+@section scripts{
+    @Scripts.Render("~/PurchaseUpload-JS")
+}
